@@ -1,0 +1,49 @@
+body {
+    color: #222222;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+header {
+    top: 0px;
+    left: 0px;
+    position: sticky;
+    background-color: white;
+    padding: 10px;
+}
+.row {
+    display: flex;
+}
+.end {
+    justify-content: flex-end;
+}
+
+.stat-container {
+    display: flex;
+    margin-right: 10px;
+}
+.stat-container p {
+    margin-right: 5px;
+}
+.result {
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #EEEEEE;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    align-items: center;
+}
+.result div {
+    display: flex;
+    align-items: center;
+}
+.result.passed {
+    background-color: rgb(37, 112, 37);
+    border: 1px solid rgb(17, 66, 17);
+}
+.result.failed {
+    background-color: rgb(228, 43, 43);
+    border: 1px solid rgb(204, 47, 47);
+}
