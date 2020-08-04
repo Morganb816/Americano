@@ -1,14 +1,25 @@
 {
-  "name": "americano",
+  "name": "americano-js",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "webpack -w & node src/Americano.js test/** 5000 --trace-warnings",
-    "test": "mocha test/index.test.js"
+  "description": "Americano is a html reporter for Mocha centered around live reload.",
+  "author": {
+    "name": "Morgan Brown",
+    "email": "Morganb816@gmail.com"
   },
+  "main": "src/americano.js",
+  "bin": {
+    "americano": "./src/americano.js"
+  },
+  "scripts": {
+    "americano": "node src/americano.js",
+    "dev": "webpack -w & node src/americano.js"
+  },
+  "files": [
+    "/src",
+    "/public",
+    "README.md"
+  ],
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.11.0",

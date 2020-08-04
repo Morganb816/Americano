@@ -1,0 +1,4 @@
+{
+    "testDir": "test/**/**.test.js",
+    "port": 8080
+}

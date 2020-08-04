@@ -79,9 +79,22 @@ class SuiteTree {
     }
 }
 
+/**
+ * Print Start Message
+ * - Only used to console log a nice greeting message with a link to the hosted reporter.
+ * @param {number} port - Port the server is listening on.
+ */
+function printStartMessage(port = 8080) {
+    console.log(`==============================================================
+    Americano Test Server running at http://localhost:${port}
+                        Happy Testing!
+==============================================================`)
+}
+
 module.exports = {
     SuiteTree,
     clean,
     cleanCycles,
-    errorJSON
+    errorJSON,
+    printStartMessage
 }
