@@ -1,6 +1,6 @@
 {
   "name": "americano-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Americano is a html reporter for Mocha centered around live reload.",
   "author": {
     "name": "Morgan Brown",
@@ -28,9 +28,13 @@
     "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
     "css-loader": "^4.2.0",
+    "eslint": "^7.6.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.5",
+    "eslint-plugin-react-hooks": "^4.0.8",
     "nodemon": "^2.0.4",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "prettier": "^2.0.5",
     "sass": "^1.26.10",
     "sass-loader": "^9.0.2",
     "style-loader": "^1.2.1",
@@ -38,9 +42,12 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "prop-types": "^15.7.2",
     "glob": "^7.1.6",
+    "mocha": "^8.1.0",
     "node-watch": "^0.6.4",
-    "ws": "^7.3.1",
-    "mocha": "^8.1.0"
+    "ws": "^7.3.1"
   }
 }

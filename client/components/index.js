@@ -1,3 +1,3 @@
-export { default as Header } from './Header';
-export { default as Suite } from './Suite';
-export { default as Test } from './Test';
+export { default as Header } from './header/Header';
+export { default as Suite } from './suite/Suite';
+export { default as Test } from './test/Test';

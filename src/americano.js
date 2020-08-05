@@ -14,8 +14,8 @@ const hasConfig = fs.existsSync('./.americano');
 
 // If they do not let them know to create one and close the program.
 if (!hasConfig) {
-    console.log("No config file found. Please create a `.americano` file");
-    return;
+    console.log('No config file found. Please create a `.americano` file');
+    process.exit();
 }
 
 // If the do have a americano config file lets parse its data into JSON.
@@ -26,10 +26,10 @@ let latestResults = null;
 // HTTP server instance.
 const server = createServer();
 // Web Socket Server instance connected to our HTTP server.
-const wss = new WebSocket.Server({ server }); 
+const wss = new WebSocket.Server({ server });
 
 // On client connect if we have any results to send, send them.
-wss.on('connection', ws => {
+wss.on('connection', (ws) => {
     if (latestResults !== null) {
         ws.send(latestResults);
     }
@@ -45,7 +45,7 @@ wss.on('connection', ws => {
 */
 server.listen(config.port || 8080, () => {
     glob(config.testDir || '*', (evt, files) => {
-        files.forEach(file => {
+        files.forEach((file) => {
             watch(file, () => {
                 runTests(files);
             });
@@ -53,9 +53,7 @@ server.listen(config.port || 8080, () => {
         runTests(files);
     });
     printStartMessage();
-});    
-
-
+});
 
 /**
  * Stringify's the given results, stores them localy in memory, and then sends them to all connected clients.
@@ -64,10 +62,10 @@ server.listen(config.port || 8080, () => {
 function handleResults(results) {
     results = JSON.stringify(results);
     latestResults = results;
-    wss.clients.forEach(client => {
+    wss.clients.forEach((client) => {
         client.send(results);
     });
-};
+}
 
 /**
  * Run Tests
@@ -76,10 +74,10 @@ function handleResults(results) {
  */
 function runTests(files) {
     // We need to clear require cache to retest with mocha.
-    Object.keys(require.cache).forEach(key => delete require.cache[key]);
+    Object.keys(require.cache).forEach((key) => delete require.cache[key]);
     const mocha = new Mocha();
 
-    files.forEach(file => {
+    files.forEach((file) => {
         mocha.addFile(file);
     });
 

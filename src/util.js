@@ -75,7 +75,7 @@ class SuiteTree {
         return branch;
     }
     finish() {
-        this.duration = Date.now() - this.duration
+        this.duration = Date.now() - this.duration;
     }
 }
 
@@ -88,7 +88,7 @@ function printStartMessage(port = 8080) {
     console.log(`==============================================================
     Americano Test Server running at http://localhost:${port}
                         Happy Testing!
-==============================================================`)
+==============================================================`);
 }
 
 module.exports = {
@@ -97,4 +97,4 @@ module.exports = {
     cleanCycles,
     errorJSON,
     printStartMessage
-}
+};

@@ -1,0 +1,27 @@
+.suite {
+    max-width: 1000px;
+    margin: 10px auto 0px auto;
+    padding: 10px;
+    color: #eeeeee;
+    font-family: Source Code Pro;
+    border-radius: 5px;
+    border: 1px solid #00000056;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    .suite-header {
+        display: flex;
+        font-weight: bold;
+        justify-content: space-between;
+        * {
+            margin: 10px 5px 5px 0px;
+        }
+    }
+    &.nest-level-0 {
+        background-color: #444444;
+    }
+    &.nest-level-1 {
+        background-color: #666666;
+    }
+    &.nest-level-2 {
+        background-color: #888888;
+    }
+}
