@@ -5,6 +5,7 @@ const path = require('path');
 /**
  * Create Server
  * - Used to create a new HTTP server instance. The new instance is not listening yet.
+ * @returns {Server} - new HTTP server instance.
  */
 const createServer = () =>
     http.createServer((req, res) => {

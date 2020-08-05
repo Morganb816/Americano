@@ -2,6 +2,10 @@ import React from 'react';
 import { Test } from '../';
 import { PropTypes } from 'prop-types';
 
+/**
+ * Suite
+ * - Component used to render a test suite, its tests, and any children suites it may have.
+ */
 const Suite = ({ suite, title, nestLevel = 0 }) => (
     <div className={`suite nest-level-${nestLevel % 3}`}>
         <div className="suite-header">

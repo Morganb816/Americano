@@ -1,6 +1,11 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
+/**
+ * Get Color Class.
+ * Returns the class name of a result color for a given test.
+ * @param {object} test - test to get color for
+ */
 function getColorClass(test) {
     if (test.state === 'passed') {
         if (test.duration > 100) {
@@ -13,6 +18,10 @@ function getColorClass(test) {
     }
 }
 
+/**
+ * Test
+ * - React component that renders a tests title and duration
+ */
 const Test = ({ test }) => (
     <div className={`test ${getColorClass(test)}`}>
         <h5>{test.title}</h5>
