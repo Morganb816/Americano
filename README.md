@@ -2,6 +2,8 @@
 ## About
 Americano is a live HTML reporter for unit tests written for [MochaJS](https://mochajs.org/).
 
+[NPM](https://www.npmjs.com/package/americano-js)
+
 ![Americano Image](https://i.imgur.com/4Yc1FZk.png)
 
 ## Motivation
