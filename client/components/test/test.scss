@@ -5,8 +5,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 30px;
+    min-height: 30px;
     border-radius: 5px;
+    h5 {
+        margin: 5px;
+    }
     &.pass-fast {
         background-color: rgb(80, 197, 80);
     }

@@ -29,7 +29,7 @@ const Test = ({ test }) => (
     </div>
 );
 Test.propTypes = {
-    test: PropTypes.shapeOf({
+    test: PropTypes.shape({
         title: PropTypes.string,
         duration: PropTypes.number
     })

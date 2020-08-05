@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StatGroup from '../';
+import { StatGroup } from '../';
 
 /**
  * Header
