@@ -23,13 +23,18 @@ npm install americano-js --save-dev
 2: Create a `.americano` file like so.
 ```js
 {
-    "testDir": "test/**/*.js", // Directory containing test files.
-    "watchDir": "public/*", // Directory of files to watch for changes.
-    "ignoreDir": "node_modules/*", // Directory of files to ignore changes in (Optional)
-    "helpers": [ // Helper files for your mocha tets. Such as @babel-register or setting up JSDOM.
+    // Directory containing test files.
+    "testDir": "test/**/*.js",
+    // Directory of files to watch for changes.
+    "watchDir": "public/*", 
+    // Directory of files to ignore changes in (Optional)
+    "ignoreDir": "node_modules/*", 
+    // Helper files for your mocha tets. Such as @babel-register or setting up JSDOM.
+    "helpers": [ 
         "test/helper.js"
     ],
-    "port": 8080 // Port you would like the test server to host results at.
+    // Port you would like the test server to host results at. (defaults to 8080)
+    "port": 8080
 }
 ```
 3: Run `americano`/add it as your test program

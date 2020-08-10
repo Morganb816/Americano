@@ -77,7 +77,7 @@ function handleResults(results) {
  */
 async function runTests(files) {
     try {
-        const results = await runTestsWorker([...config.helpers, ...files]);
+        const results = await runTestsWorker([...config.helpers || [], ...files]);
         handleResults(results);
     } catch (err) {
         console.log(err);

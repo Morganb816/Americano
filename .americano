@@ -4,6 +4,5 @@
     "ignoreDir": "node_modules/*",
     "helpers": [
         "test/helper.js"
-    ],
-    "port": 8080
+    ]
 }
