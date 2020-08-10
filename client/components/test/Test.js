@@ -5,8 +5,9 @@ import { PropTypes } from 'prop-types';
  * Get Color Class.
  * Returns the class name of a result color for a given test.
  * @param {object} test - test to get color for
+ * @exports
  */
-function getColorClass(test) {
+export function getColorClass(test) {
     if (test.state === 'passed') {
         if (test.duration > 100) {
             return 'pass-slow';
@@ -19,19 +20,71 @@ function getColorClass(test) {
 }
 
 /**
+ * Test Error
+ * - React component that renders mocha test errors as code blocks like they would show in the console.
+ */
+export const TestError = ({ err }) => (
+    <div className='code-block'>
+        <code>
+            <span className='red'>- expected</span>  <span className='gray'>+ actual</span><br />
+            <br />
+            <span className='red'>- {err.actual}</span><br />
+            <span className='gray'>+ {err.expected}</span>
+        </code>
+    </div>
+);
+TestError.propTypes = {
+    err: PropTypes.shape({
+        actual: PropTypes.any,
+        expected: PropTypes.any
+    })
+};
+
+/**
+ * Test Stack
+ * - React Component that renders mocha test stacks as code blocks like they would show in the console.
+ */
+export const TestStack = ({ stack }) => (
+    <div className='code-block'><code>{stack.split('at ').map((line, i) =>
+        i === 0
+            ? line
+            : (
+                <React.Fragment>
+                    <br /><span style={{ marginLeft: '25px' }}>at ${line}</span>
+                </React.Fragment>
+            )
+    )
+    }</code></div>
+);
+TestStack.propTypes = {
+    stack: PropTypes.string
+};
+
+/**
  * Test
  * - React component that renders a tests title and duration
  */
-const Test = ({ test }) => (
+export const Test = ({ test }) => (
     <div className={`test ${getColorClass(test)}`}>
-        <h5>{test.title}</h5>
-        <h5>{test.duration}ms</h5>
+        <div>
+            <h5>{test.title}</h5>
+            <h5>{test.duration}ms</h5>
+        </div>
+        {test.state === 'failed' && (
+            <React.Fragment>
+                <TestError err={test.err} />
+                <TestStack stack={test.err.stack} />
+            </React.Fragment>
+        )}
     </div>
 );
 Test.propTypes = {
     test: PropTypes.shape({
         title: PropTypes.string,
-        duration: PropTypes.number
+        duration: PropTypes.number,
+        err: PropTypes.object,
+        state: PropTypes.string,
+        stack: PropTypes.object
     })
 };
 

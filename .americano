@@ -1,4 +1,9 @@
 {
-    "testDir": "test/**/**.test.js",
+    "testDir": "test/**/*.js",
+    "watchDir": "public/*",
+    "ignoreDir": "node_modules/*",
+    "helpers": [
+        "test/helper.js"
+    ],
     "port": 8080
 }

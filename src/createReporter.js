@@ -1,4 +1,5 @@
 const Mocha = require('mocha');
+const mocha = require('mocha');
 const constants = Mocha.Runner.constants;
 const { SuiteTree, clean, cleanCycles } = require('./util');
 
@@ -11,6 +12,9 @@ const { SuiteTree, clean, cleanCycles } = require('./util');
  */
 function createReporter(callback) {
     return function myReporter(runner) {
+        // Inherit mochas Base repoter statistics. Gives us access to things like errors
+        mocha.reporters.Base.call(this, runner);
+
         let suiteTree = new SuiteTree('');
         let totalTests = 0;
         let totalPass = 0;

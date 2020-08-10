@@ -2,14 +2,22 @@
     color: white;
     padding: 5px;
     margin: 5px 0px 0px 0px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h5 {
+            margin: 5px;
+        }
+    }
+    .code-block {
+        background-color: #222;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin: 5px 0px;
+    }
     min-height: 30px;
     border-radius: 5px;
-    h5 {
-        margin: 5px;
-    }
     &.pass-fast {
         background-color: rgb(80, 197, 80);
     }

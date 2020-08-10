@@ -44,13 +44,29 @@ wss.on('connection', (ws) => {
     5: if a file changes we run our tests again.
 */
 server.listen(config.port || 8080, () => {
+    let testFiles;
+    let watched = {};
+
     glob(config.testDir || '*', (evt, files) => {
+        testFiles = files;
         files.forEach((file) => {
+            watched[file] = true;
             watch(file, () => {
                 runTests(files);
             });
         });
         runTests(files);
+    });
+
+    glob(config.watchDir, (evt, files) => {
+        files.forEach(file => {
+            if (!watched[file]) {
+                watched[file] = true;
+                watch(file, () => {
+                    runTests(testFiles);
+                });
+            }
+        });
     });
     printStartMessage();
 });
@@ -76,6 +92,8 @@ function runTests(files) {
     // We need to clear require cache to retest with mocha.
     Object.keys(require.cache).forEach((key) => delete require.cache[key]);
     const mocha = new Mocha();
+
+    config.helpers.forEach(file => mocha.addFile(file));
 
     files.forEach((file) => {
         mocha.addFile(file);
