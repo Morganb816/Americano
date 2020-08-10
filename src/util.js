@@ -1,4 +1,8 @@
 const fs = require('fs');
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
 /**
  * Transform an Error object into a JSON object.
@@ -102,20 +106,64 @@ function queFunction(func, time = 500) {
     };
 }
 
+async function createConfig(config) {
+    await fs.writeFileSync('./.americano', JSON.stringify(config, null, 2));
+}
+
 /**
  * Load Config
  * - Loads an americano config file. if one does not exist, throws a warning and exits cleanly. 
+ * @async
  * @returns {object} - config data
  */
-function loadConfig() {
+async function loadConfig() {
     const hasConfig = fs.existsSync('./.americano');
 
     if (!hasConfig) {
-        console.log('No config file found. Please create a .americano config file.');
+
+        const config = {
+            testDir: '',
+            watchDir: '',
+            ignoreDir: '',
+            helpers: [],
+            port: 8080
+        };
+
+        const result = await new Promise(resolve => {
+            readline.question('No config file found, would you like to make one? [y/n]\n', resolve);
+        });
+        if (result === 'y' || result === 'Y') {
+            config.testDir = await new Promise(resolve => {
+                readline.question('Test File Directiory (glob pattern).\n', resolve);
+            });
+            config.watchDir = await new Promise(resolve => {
+                readline.question('Directory to watch for changes (glob pattern).\n', resolve);
+            });
+            config.helpers = await new Promise(resolve => {
+                readline.question('MochaJS Helper Files (comma seperated, direct path to file)\n', answer => {
+                    answer = answer.split(',');
+                    answer = answer.map(file => file.trim());
+                    resolve(answer);
+                });
+            });
+            config.port = await new Promise(resolve => {
+                readline.question('Port to run server on? [8080]\n', answer => {
+                    if (answer.length < 4 || isNaN(answer)) {
+                        resolve(8080);
+                    }
+                    resolve(answer);
+                });
+            });
+            await createConfig(config);
+            readline.close();
+            return config;
+        }
         process.exit(0);
+
+    } else {
+        return JSON.parse(fs.readFileSync('./.americano', 'utf8'));
     }
 
-    return JSON.parse(fs.readFileSync('./.americano', 'utf8'));
 }
 
 /**

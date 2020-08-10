@@ -20,7 +20,7 @@ I noticed there was a hole in the Mocha ecosystem that has a few rickity bridges
 ```
 npm install americano-js --save-dev
 ```
-2: Create a `.americano` file like so.
+2: Run americano for the first time. It will give you a series of prompts to create a config file that looks something like the example below.
 ```js
 {
     // Directory containing test files.
