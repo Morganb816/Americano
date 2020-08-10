@@ -7,9 +7,10 @@ const constants = Runner.constants;
  * - Returns a mocha reporter with access to a callback
  *   we can use to handle the data after the tests finish.
  * @param {function} callback - run when our test finish running. takes in the results from this pass.
+ * @param {function} getLogs - function that gets the current collection of logs from mocha.
  * @returns {function} reporter
  */
-function createReporter(callback) {
+function createReporter(callback, getLogs = () => { }) {
     return function myReporter(runner) {
         // Inherit mochas Base repoter statistics. Gives us access to things like errors
         reporters.Base.call(this, runner);
@@ -54,11 +55,13 @@ function createReporter(callback) {
         // TEST FAIL AND PASS
         {
             runner.on(constants.EVENT_TEST_FAIL, (test) => {
+                test.logs = getLogs();
                 suiteTree.addTest(clean(test));
                 totalFail += 1;
                 totalTests += 1;
             });
             runner.on(constants.EVENT_TEST_PASS, (test) => {
+                test.logs = getLogs();
                 suiteTree.addTest(clean(test));
                 if (test.duration > 1000) {
                     totalSlow += 1;

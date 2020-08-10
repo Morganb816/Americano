@@ -19,6 +19,14 @@ if (isMainThread) {
         });
     };
 } else {
+
+    // This peice of code allows us to collect any logs that the user has made from mocha.
+    let logs = [];
+    console.log = function (log) {
+        logs.push(log);
+        process.stdout.write(log + '\n');
+    };
+
     // If this file is being read as a worker.
     const Mocha = require('mocha');
     const createReporter = require('./createReporter');
@@ -34,6 +42,10 @@ if (isMainThread) {
     // Link a new reporter to mocha that passes results back to the parent port when complete.
     mocha.reporter(createReporter(results => {
         parentPort.postMessage(results);
+    }, () => {
+        let store = logs;
+        logs = [];
+        return store;
     }));
 
     // Run Mocha.

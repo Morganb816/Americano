@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Header, Suite } from './components';
+import { Header, Suite, Error } from './components';
 
 /**
  * Process Results
@@ -8,7 +8,7 @@ import { Header, Suite } from './components';
  * @returns {object} - Parsed test results.
  */
 const processResults = (results) => {
-    const data = JSON.parse(results.data);
+    const data = JSON.parse(results);
     return data;
 };
 
@@ -31,15 +31,32 @@ const getWsOrigin = () => {
 const App = () => {
     // This clients web socket connection.
     const [ws, setWs] = useState(null);
+    // Error received from the server.
+    const [error, setError] = useState(false);
     // Latest received results from server.
     const [results, setResults] = useState({});
+
+    const handleMessage = message => {
+        message = JSON.parse(message.data);
+        switch (message.type) {
+            case 'results':
+                setError(false);
+                setResults(processResults(message.data));
+                break;
+            case 'error':
+                setError(message.data);
+                break;
+            default:
+                break;
+        }
+    };
 
     // Runs when the component mounts. Connects to the websocket server and
     // initializes a listener for websocket messages. Finnaly it sets our
     // connection on state.
     useEffect(() => {
         const ws = new WebSocket(getWsOrigin());
-        ws.onmessage = (data) => setResults(processResults(data));
+        ws.onmessage = handleMessage;
         setWs(ws);
     }, []);
 
@@ -52,14 +69,16 @@ const App = () => {
                 slowCount={results?.totals?.slow}
                 time={results?.totals?.time}
             />
-            {results.suites &&
+            {error ? <Error error={error} /> : (
+                results.suites &&
                 Object.keys(results?.suites).map((suiteTitle, i) => (
                     <Suite
                         key={`suite-${suiteTitle}-${i}`}
                         suite={results.suites[suiteTitle]}
                         title={suiteTitle}
                     />
-                ))}
+                ))
+            )}
         </div>
     );
 };

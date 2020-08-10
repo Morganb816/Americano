@@ -8,11 +8,12 @@ const fs = require('fs');
 
 (async () => {
 
-
     // Load config data from file.
     const config = await loadConfig();
     // Latests test results.
     let latestResults = null;
+    // Latest error from tests. (null if we have passed since the error).
+    let latestError = null;
     // HTTP server instance.
     const server = createServer();
     // Web Socket Server instance connected to our HTTP server.
@@ -20,8 +21,10 @@ const fs = require('fs');
 
     // On client connect if we have any results to send, send them.
     wss.on('connection', (ws) => {
-        if (latestResults !== null) {
-            ws.send(latestResults);
+        if (latestError) {
+            ws.send(JSON.stringify({ type: 'error', data: latestError }));
+        } else if (latestResults !== null) {
+            ws.send(JSON.stringify({ type: 'results', data: latestResults }));
         }
     });
 
@@ -68,8 +71,16 @@ const fs = require('fs');
     function handleResults(results) {
         results = JSON.stringify(results);
         latestResults = results;
+        latestError = false;
         wss.clients.forEach((client) => {
-            client.send(results);
+            client.send(JSON.stringify({ type: 'results', data: results }));
+        });
+    }
+
+    function handleError(err) {
+        latestError = { message: err.message, stack: JSON.stringify(err.stack) };
+        wss.clients.forEach((client) => {
+            client.send(JSON.stringify({ type: 'error', data: latestError }));
         });
     }
 
@@ -83,7 +94,7 @@ const fs = require('fs');
             const results = await runTestsWorker([...config.helpers || [], ...files]);
             handleResults(results);
         } catch (err) {
-            console.log(err);
+            handleError(err);
         }
     }
 

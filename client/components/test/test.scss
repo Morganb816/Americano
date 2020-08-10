@@ -2,7 +2,7 @@
     color: white;
     padding: 5px;
     margin: 5px 0px 0px 0px;
-    div {
+    div:not(.code-block) {
         display: flex;
         justify-content: space-between;
         align-items: center;

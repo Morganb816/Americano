@@ -39,7 +39,8 @@ function clean(test) {
         duration: test.duration,
         currentRetry: test.currentRetry(),
         state: test.state,
-        err: cleanCycles(err)
+        err: cleanCycles(err),
+        logs: test.logs
     };
 }
 

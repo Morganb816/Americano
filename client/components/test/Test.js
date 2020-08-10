@@ -76,6 +76,15 @@ export const Test = ({ test }) => (
                 <TestStack stack={test.err.stack} />
             </React.Fragment>
         )}
+        {test.logs.length > 0 && (
+            <div className='code-block'>Logs: {
+                test.logs.map((log, i) => (
+                    <code key={`log-${i}-${log}`}>
+                        <br /><span style={{ marginLeft: '15px' }}>{log}</span>
+                    </code>
+                ))
+            }</div>
+        )}
     </div>
 );
 Test.propTypes = {
@@ -84,7 +93,8 @@ Test.propTypes = {
         duration: PropTypes.number,
         err: PropTypes.object,
         state: PropTypes.string,
-        stack: PropTypes.object
+        stack: PropTypes.object,
+        logs: PropTypes.array
     })
 };
 

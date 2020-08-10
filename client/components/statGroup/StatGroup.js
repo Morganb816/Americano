@@ -5,7 +5,7 @@ import { PropTypes } from 'prop-types';
  * Stat Group
  * - Component used for rendering "stats" as vertical bars.
  */
-const StatGroup = ({ stats }) => {
+const StatGroup = ({ stats = [] }) => {
     let highestPercent = 0;
 
     for (let i = 0; i < stats.length; i++) {

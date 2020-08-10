@@ -1,0 +1,16 @@
+.error-container {
+    max-width: 1000px;
+    margin: 10px auto 0px auto;
+    padding: 10px;
+    color: #eeeeee;
+    font-family: Source Code Pro;
+    border-radius: 5px;
+    border: 1px solid #00000056;
+    background-color: rgb(206, 72, 72);
+    .code-block {
+        background-color: #222;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin: 5px 0px;
+    }
+}
