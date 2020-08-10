@@ -1,26 +1,13 @@
 #!/usr/bin/env node
-
-const Mocha = require('mocha');
-const glob = require('glob');
-const watch = require('node-watch');
+const { printStartMessage, queFunction, loadConfig } = require('./util');
 const createServer = require('./createServer');
+const runTestsWorker = require('./runTests');
 const WebSocket = require('ws');
-const createReporter = require('./createReporter');
+const glob = require('glob');
 const fs = require('fs');
-const { printStartMessage } = require('./util');
 
-// Check if directory has an americano config file.
-const hasConfig = fs.existsSync('./.americano');
-
-// If they do not let them know to create one and close the program.
-if (!hasConfig) {
-    console.log('No config file found. Please create a `.americano` file');
-    process.exit();
-}
-
-// If the do have a americano config file lets parse its data into JSON.
-const config = JSON.parse(fs.readFileSync('./.americano', 'utf8'));
-
+// Load config data from file.
+const config = loadConfig();
 // Latests test results.
 let latestResults = null;
 // HTTP server instance.
@@ -46,24 +33,24 @@ wss.on('connection', (ws) => {
 server.listen(config.port || 8080, () => {
     let testFiles;
     let watched = {};
-
+    const testRunner = queFunction(runTests, 500);
     glob(config.testDir || '*', (evt, files) => {
         testFiles = files;
         files.forEach((file) => {
             watched[file] = true;
-            watch(file, () => {
-                runTests(files);
+            fs.watch(file, () => {
+                testRunner(files);
             });
         });
-        runTests(files);
+        testRunner(files);
     });
 
     glob(config.watchDir, (evt, files) => {
         files.forEach(file => {
             if (!watched[file]) {
                 watched[file] = true;
-                watch(file, () => {
-                    runTests(testFiles);
+                fs.watch(file, () => {
+                    testRunner(testFiles);
                 });
             }
         });
@@ -85,20 +72,14 @@ function handleResults(results) {
 
 /**
  * Run Tests
- * - Runs tests for a given array of files.
+ * - Runs our test workers with a given array of files. Pass results to handle results.
  * @param {string[]} files - Array of file paths.
  */
-function runTests(files) {
-    // We need to clear require cache to retest with mocha.
-    Object.keys(require.cache).forEach((key) => delete require.cache[key]);
-    const mocha = new Mocha();
-
-    config.helpers.forEach(file => mocha.addFile(file));
-
-    files.forEach((file) => {
-        mocha.addFile(file);
-    });
-
-    mocha.reporter(createReporter(handleResults));
-    mocha.run();
+async function runTests(files) {
+    try {
+        const results = await runTestsWorker([...config.helpers, ...files]);
+        handleResults(results);
+    } catch (err) {
+        console.log(err);
+    }
 }
