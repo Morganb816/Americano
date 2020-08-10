@@ -21,10 +21,15 @@ I noticed there was a hole in the Mocha ecosystem that has a few rickity bridges
 npm install americano-js --save-dev
 ```
 2: Create a `.americano` file like so.
-```json
+```
 {
-    "testDir": "/**.test.js", // Glob path to tests.
-    "port": 8080 // Desired port to run americano on
+    "testDir": "test/**/*.js", // Directory containing test files.
+    "watchDir": "public/*", // Directory of files to watch for changes.
+    "ignoreDir": "node_modules/*", // Directory of files to ignore changes in (Optional)
+    "helpers": [ // Helper files for your mocha tets. Such as @babel-register or setting up JSDOM.
+        "test/helper.js"
+    ],
+    "port": 8080 // Port you would like the test server to host results at.
 }
 ```
 3: Run `americano`/add it as your test program
