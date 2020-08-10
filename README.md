@@ -13,6 +13,8 @@ I noticed there was a hole in the Mocha ecosystem that has a few rickity bridges
 * Live Reload 🥳
 * Generate HTML Reports
 * No new API's to learn
+* View Logs in Browser
+* View Errors in Browser
 
 ## Usage
 
