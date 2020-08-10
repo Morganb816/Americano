@@ -21,7 +21,7 @@ I noticed there was a hole in the Mocha ecosystem that has a few rickity bridges
 npm install americano-js --save-dev
 ```
 2: Create a `.americano` file like so.
-```json
+```js
 {
     "testDir": "test/**/*.js", // Directory containing test files.
     "watchDir": "public/*", // Directory of files to watch for changes.
