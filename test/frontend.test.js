@@ -42,14 +42,14 @@ describe('Front End Test Suite', () => {
                     expect(child.type()).to.equal(StatBar);
                 });
             });
-            // describe('<StatBar />', () => {
-            //     const bar = shallow(<StatBar {...stats[0]} />);
-            //     it('Should render the correct amount in the bar', () => {
-            //         const number = bar.find('.amount').text();
-            //         console.log('Number: ', number);
-            //         expect(Number(number)).to.equal(stats[0].amount);
-            //     });
-            // });
+            describe('<StatBar />', () => {
+                const bar = shallow(<StatBar {...stats[0]} />);
+                it('Should render the correct amount in the bar', () => {
+                    const number = bar.find('.amount').text();
+                    console.log('Number: ', number);
+                    expect(Number(number)).to.equal(stats[0].amount);
+                });
+            });
         });
         describe('<Test />', () => {
             const testData = {
