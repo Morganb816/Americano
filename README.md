@@ -1,4 +1,4 @@
-# Americano
+# Americano☕
 ## About
 Americano is a live HTML reporter for unit tests written for [MochaJS](https://mochajs.org/).
 
