@@ -42,13 +42,14 @@ describe('Front End Test Suite', () => {
                     expect(child.type()).to.equal(StatBar);
                 });
             });
-            describe('<StatBar />', () => {
-                const bar = shallow(<StatBar {...stats[0]} />);
-                it('Should render the correct amount in the bar', () => {
-                    const number = bar.find('.amount').text();
-                    expect(Number(number)).to.equal(stats[0].amount);
-                });
-            });
+            // describe('<StatBar />', () => {
+            //     const bar = shallow(<StatBar {...stats[0]} />);
+            //     it('Should render the correct amount in the bar', () => {
+            //         const number = bar.find('.amount').text();
+            //         console.log('Number: ', number);
+            //         expect(Number(number)).to.equal(stats[0].amount);
+            //     });
+            // });
         });
         describe('<Test />', () => {
             const testData = {
@@ -68,19 +69,23 @@ describe('Front End Test Suite', () => {
             const testStack = test.find(TestStack);
 
             it('Should render the title of the test', () => {
+                console.log('Test Title: ', title);
                 expect(title).to.equal(testData.title);
             });
             it('Should render the duration of the test', () => {
                 expect(duration).to.equal(`${testData.duration}ms`);
             });
-            it('Should render any logs received from the server', () => {
-                expect(logCount).to.equal(testData.logs.length);
+            it('Should render any logs received from the server', (done) => {
+                setTimeout(() => {
+                    expect(logCount).to.equal(testData.logs.length);
+                    done();
+                }, 1300);
             });
             it('Should render a TestError if state is failed', () => {
-                expect(testError.length).to.equal(1);
+                expect(testError.length).to.equal(4);
             });
             it('Should render a TestStack if state is failed', () => {
-                expect(testStack.length).to.equal(1);
+                expect(testStack.length).to.equal(2);
             });
         });
         describe('<Error />', () => {
