@@ -22,9 +22,14 @@ if (isMainThread) {
 
     // This peice of code allows us to collect any logs that the user has made from mocha.
     let logs = [];
-    console.log = function (log) {
-        logs.push(log);
-        process.stdout.write(log + '\n');
+    console.log = function () {
+        let str = '';
+        Object.keys(arguments).forEach(argument => {
+            str += arguments[argument] + ' ';
+        });
+
+        logs.push(str);
+        process.stdout.write(str + '\n');
     };
 
     // If this file is being read as a worker.

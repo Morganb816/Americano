@@ -7,7 +7,7 @@ const glob = require('glob');
 const fs = require('fs');
 
 (async () => {
-
+    console.clear();
     // Load config data from file.
     const config = await loadConfig();
     // Latests test results.

@@ -67,8 +67,8 @@ TestStack.propTypes = {
 export const Test = ({ test }) => (
     <div className={`test ${getColorClass(test)}`}>
         <div>
-            <h5>{test.title}</h5>
-            <h5>{test.duration}ms</h5>
+            <h5 className='test-title'>{test.title}</h5>
+            <h5 className='test-duration'>{test.duration}ms</h5>
         </div>
         {test.state === 'failed' && (
             <React.Fragment>
@@ -93,7 +93,6 @@ Test.propTypes = {
         duration: PropTypes.number,
         err: PropTypes.object,
         state: PropTypes.string,
-        stack: PropTypes.object,
         logs: PropTypes.array
     })
 };

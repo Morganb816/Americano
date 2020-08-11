@@ -45,17 +45,15 @@ StatGroup.propTypes = {
  */
 export const StatBar = ({ percent, amount, color, fontColor = 'white' }) => (
     <div className="stat-bar">
-        <div
-            style={{ height: `${percent * 100}%`, backgroundColor: `${color}` }}
-        >
-            {<h3 style={{ color: fontColor }}>{amount}</h3>}
+        <div style={{ height: `${percent * 100}%`, backgroundColor: `${color}` }}>
+            {<h3 className='amount' style={{ color: fontColor }}>{amount}</h3>}
         </div>
     </div>
 );
 StatBar.propTypes = {
-    percent: PropTypes.number,
-    amount: PropTypes.number,
-    color: PropTypes.string,
+    percent: PropTypes.number.isRequired,
+    amount: PropTypes.number.isRequired,
+    color: PropTypes.string.isRequired,
     fontColor: PropTypes.string
 };
 
