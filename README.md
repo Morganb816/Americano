@@ -47,3 +47,5 @@ npm install americano-js --save-dev
 }
 ...
 ```
+## License
+License under [MIT](https://opensource.org/licenses/MIT).
