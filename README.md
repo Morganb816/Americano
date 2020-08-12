@@ -1,4 +1,5 @@
 # Americano☕
+![npm bundle size](https://img.shields.io/bundlephobia/min/americano-js) ![GitHub stars](https://img.shields.io/github/stars/Morganb816/Americano)![npm](https://img.shields.io/npm/v/americano-js)
 ## About
 Americano is a live HTML reporter for unit tests written for [MochaJS](https://mochajs.org/).
 
