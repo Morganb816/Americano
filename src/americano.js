@@ -27,7 +27,6 @@ const fs = require('fs');
             ws.send(JSON.stringify({ type: 'results', data: latestResults }));
         }
     });
-
     /*
         The below code does as follows.
         1: starts our http server on port 8080.

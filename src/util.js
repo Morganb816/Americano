@@ -142,9 +142,13 @@ async function loadConfig() {
             });
             config.helpers = await new Promise(resolve => {
                 readline.question('MochaJS Helper Files (comma seperated, direct path to file)\n', answer => {
-                    answer = answer.split(',');
-                    answer = answer.map(file => file.trim());
-                    resolve(answer);
+                    if (answer.length < 1) {
+                        resolve([]);
+                    } else {
+                        answer = answer.split(',');
+                        answer = answer.map(file => file.trim());
+                        resolve(answer);
+                    }
                 });
             });
             config.port = await new Promise(resolve => {

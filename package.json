@@ -1,6 +1,6 @@
 {
   "name": "americano-js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Americano is a html reporter for Mocha centered around live reload.",
   "author": {
     "name": "Morgan Brown",
