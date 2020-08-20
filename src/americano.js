@@ -41,27 +41,35 @@ const fs = require('fs');
         let watched = {};
         const testRunner = queFunction(runTests, 500);
         glob(config.testDir || '*', (evt, files) => {
-            testFiles = files;
-            files.forEach((file) => {
-                watched[file] = true;
-                fs.watch(file, () => {
-                    testRunner(files);
+            if (!files) {
+                console.log('No test files found...Check glob pattern in config');
+            } else {
+                testFiles = files;
+                files.forEach((file) => {
+                    watched[file] = true;
+                    fs.watch(file, () => {
+                        testRunner(files);
+                    });
                 });
-            });
-            testRunner(files);
+                testRunner(files);
+            }
         });
 
         glob(config.watchDir, (evt, files) => {
-            files.forEach(file => {
-                if (!watched[file]) {
-                    watched[file] = true;
-                    fs.watch(file, () => {
-                        testRunner(testFiles);
-                    });
-                }
-            });
+            if (!files) {
+                console.log('No files found in watch dir, Ignoring and running tests');
+            } else {
+                files.forEach(file => {
+                    if (!watched[file]) {
+                        watched[file] = true;
+                        fs.watch(file, () => {
+                            testRunner(testFiles);
+                        });
+                    }
+                });
+            }
         });
-        printStartMessage();
+        printStartMessage(config.port || 8080);
     });
 
     /**
