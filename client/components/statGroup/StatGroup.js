@@ -13,7 +13,6 @@ const StatGroup = ({ stats = [] }) => {
             highestPercent = stats[i].percent;
         }
     }
-
     return (
         <div className="stat-group">
             {stats.map((stat, i) => (
